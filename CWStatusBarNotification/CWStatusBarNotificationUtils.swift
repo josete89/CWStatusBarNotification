@@ -151,7 +151,7 @@ func performClosureAfterDelay(_ seconds : Double, closure:  Closure?) -> CWDelay
     let delayHandle : CWDelayedClosureHandle = {
         (cancel : Bool) -> () in
         if !cancel && closureToExecute != nil {
-            DispatchQueue.main.async(execute: closureToExecute as! @convention(block) () -> Void)
+            DispatchQueue.main.async(execute: closureToExecute!)
         }
         closureToExecute = nil
         delayHandleCopy = nil
