@@ -31,10 +31,10 @@ class MainViewController: UIViewController {
         self.updateDurationLabel()
         
         // setup font
-        let font = UIFont.boldSystemFontOfSize(10.0)
+        let font = UIFont.boldSystemFont(ofSize: 10.0)
         let attributes = [NSFontAttributeName : font]
-        self.segFromStyle.setTitleTextAttributes(attributes, forState: .Normal)
-        self.segToStyle.setTitleTextAttributes(attributes, forState: .Normal)
+        self.segFromStyle.setTitleTextAttributes(attributes, for: UIControlState())
+        self.segToStyle.setTitleTextAttributes(attributes, for: UIControlState())
         
         // set default blue color (since iOS 7.1, default window `tintColor`
         // is black)
@@ -69,22 +69,22 @@ class MainViewController: UIViewController {
     
     // MARK: - IB actions
     
-    @IBAction func sliderDurationChanged(sender: UISlider) {
+    @IBAction func sliderDurationChanged(_ sender: UISlider) {
         self.updateDurationLabel()
     }
     
-    @IBAction func btnShowNotificationPressed(sender: UIButton) {
+    @IBAction func btnShowNotificationPressed(_ sender: UIButton) {
         self.setupNotification()
-        let duration = NSTimeInterval(self.sliderDuration.value)
+        let duration = TimeInterval(self.sliderDuration.value)
         self.notification.displayNotificationWithMessage(
             self.txtNotificationMessage.text!, forDuration: duration)
     }
     
-    @IBAction func btnShowCustomNotificationPressed(sender: UIButton) {
+    @IBAction func btnShowCustomNotificationPressed(_ sender: UIButton) {
         self.setupNotification()
-        let duration = NSTimeInterval(self.sliderDuration.value)
-        guard let view = NSBundle.mainBundle().loadNibNamed("CustomView",
-            owner: nil, options: nil)[0] as? UIView else {
+        let duration = TimeInterval(self.sliderDuration.value)
+        guard let view = Bundle.main.loadNibNamed("CustomView",
+            owner: nil, options: nil)?[0] as? UIView else {
                 return
         }
         self.notification.displayNotificationWithView(view,
